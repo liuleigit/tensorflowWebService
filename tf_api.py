@@ -10,6 +10,7 @@ import tensorflow as tf
 import tensorflow.models.embedding.word2vec_optimized as w2v
 
 def getWord2VecModle(session):
+    global model
     train_data = 'tex8'
     eval_data = 'questions-words.txt'
     save_path = '/tmp'
@@ -31,5 +32,6 @@ def getWord2VecModle(session):
     print model.analogy('king', 'man', 'queen')
     return model
 
-def getNextWord(model, word1, word2, word3):
+def getNextWord( word1, word2, word3):
+    global model
     return model.analogy(word1, word2, word3)

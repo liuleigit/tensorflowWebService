@@ -16,7 +16,7 @@ import tensorflow as tf
 #import tensorflow.models.embedding.word2vec_optimized as w2v
 import tf_api
 
-model = tf_api.w2v.Word2Vec()
+model = 0
 
 class TfTest(tornado.web.RequestHandler):
     def get(self):
@@ -27,7 +27,7 @@ class WordEmbeding(tornado.web.RequestHandler):
         w1 = self.get_arguments('word1', None)
         w2 = self.get_arguments('word2', None)
         w3 = self.get_arguments('word3', None)
-        w4 = tf_api.getNextWord(model, w1, w2, w3)
+        w4 = tf_api.getNextWord(w1, w2, w3)
         self.write(w4)
 
 
