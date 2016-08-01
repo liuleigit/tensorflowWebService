@@ -42,14 +42,14 @@ class Application(tornado.web.Application):
 
 
 
-session = tf.Session()
 
 if __name__ == "__main__":
     port = sys.argv[1]
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
 
-    model = tf_api.getWord2VecModle(session)
+    with tf.Graph().as_default(), tf.Session() as session:
+        model = tf_api.getWord2VecModle(session)
 
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
