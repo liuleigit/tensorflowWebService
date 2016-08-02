@@ -9,9 +9,13 @@ import os
 import tensorflow as tf
 import tensorflow.models.embedding.word2vec_optimized as w2v
 
-def getWord2VecModle(session):
+session = tf.Session()
+model = 0
+
+def getWord2VecModle():
+    global session
     global model
-    train_data = 'tex8'
+    train_data = 'text8'
     eval_data = 'questions-words.txt'
     save_path = '/tmp'
     opts = w2v.Options()
@@ -20,7 +24,7 @@ def getWord2VecModle(session):
     opts.save_path = save_path
     #with tf.Graph().as_default(), tf.Session() as session:
         #with tf.device("/cpu:0"):
-    with tf.device("/cpu:0"):
+    with tf.device("/cpu:0"), session.as_default():
         model = w2v.Word2Vec(opts, session)
     for _ in xrange(opts.epochs_to_train):
         model.train()  # Process one epoch

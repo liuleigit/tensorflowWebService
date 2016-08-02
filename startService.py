@@ -16,7 +16,6 @@ import tensorflow as tf
 #import tensorflow.models.embedding.word2vec_optimized as w2v
 import tf_api
 
-model = 0
 
 class TfTest(tornado.web.RequestHandler):
     def get(self):
@@ -24,9 +23,9 @@ class TfTest(tornado.web.RequestHandler):
 
 class WordEmbeding(tornado.web.RequestHandler):
     def get(self):
-        w1 = self.get_arguments('word1', None)
-        w2 = self.get_arguments('word2', None)
-        w3 = self.get_arguments('word3', None)
+        w1 = self.get_argument('word1', None)
+        w2 = self.get_argument('word2', None)
+        w3 = self.get_argument('word3', None)
         w4 = tf_api.getNextWord(w1, w2, w3)
         self.write(w4)
 
@@ -48,8 +47,10 @@ if __name__ == "__main__":
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
 
-    with tf.Graph().as_default(), tf.Session() as session:
-        model = tf_api.getWord2VecModle(session)
+    tf.Graph().as_default()
+    #with tf.Graph().as_default(), tf.Session() as session:
+    #session = tf.Session()
+    model = tf_api.getWord2VecModle()
 
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
